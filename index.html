@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="jquery-3.4.1.min.js" ></script>
+		<style>
+			img{
+				widows: 120px;
+				height: 120px;
+				margin: 3px;
+			}
+		</style>
+	</head>
+	<body>
+		<input id="imgfiles" type="file" multiple="multiple"/>
+		<div id="imgs">
+		</div>	
+	</body>
+	<script>
+		$("#imgfiles").on("change",function(){
+			$("#imgs").html("");
+			var files = this.files;
+			console.log(files.length);
+			
+			for (i=0;i<files.length;i++) {
+				var innerHtm = "<img id='"+"preImg"+i+"'>";
+				console.log(innerHtm)
+				$("#imgs").append(innerHtm);
+			}
+			debugger;
+			$.each(files, function(idx,val) {
+				//console.log(val);
+				var reader = new FileReader();
+				//console.log(reader);
+				reader.readAsDataURL(val);
+				var id = "preImg"+idx;
+				
+				var selector = "#"+id;
+				
+				//console.log(reader); 
+				reader.onload = function() {
+					$(selector).attr('src',this.result);
+				};
+			});
+			
+		})
+	</script>
+</html>
